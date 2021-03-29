@@ -15,38 +15,5 @@ namespace dotnetAPI.Host.Base
         {
             _errorService = errorService;
         }
-
-        protected HttpResponseMessage CreateHttpResponse(HttpRequestMessage requestMessage, Func<HttpResponseMessage> function)
-        {
-            HttpResponseMessage result = null;
-            try
-            {
-                result = function.Invoke();
-            }
-            catch (DbUpdateException dbex)
-            {
-                LogError(dbex);
-                result = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbex.InnerException.Message);
-            }
-            catch (Exception ex)
-            {
-                LogError(ex);
-                result = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-            }
-            return result;
-
-        }
-
-        private void LogError(Exception ex)
-        {
-
-            Error error = new Error();
-            error.Message = ex.Message;
-            error.StackTrace = ex.StackTrace;
-            error.CreatedDate = DateTime.Now;
-            _errorService.Create(error);
-            _errorService.Commit();
-
-        }
     }
 }

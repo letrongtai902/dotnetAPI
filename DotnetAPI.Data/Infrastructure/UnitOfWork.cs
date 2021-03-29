@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dotnetAPI.Model.Models;
+using DotnetAPI.Data.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +10,26 @@ namespace DotnetAPI.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDbFactory dbFactory;
-        private DotnetAPIDbContext dbContext;
-
-        public UnitOfWork(IDbFactory dbFactory)
+        private DotnetAPIDbContext _dbContext;
+        private CustomerRepository _customers;
+        public UnitOfWork(DotnetAPIDbContext dbContext)
         {
-            this.dbFactory = dbFactory;
+            _dbContext = dbContext;
         }
-
-        public DotnetAPIDbContext DbContext
+        public IRepository<Customer> Customers
         {
-            get { return dbContext ?? (dbContext = dbFactory.Init()); }
+            get
+            {
+                if(_customers == null)
+                {
+                    _customers = new CustomerRepository(_dbContext);
+                }
+                return _customers;
+            }
         }
-
         public void Commit()
         {
-            DbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 }

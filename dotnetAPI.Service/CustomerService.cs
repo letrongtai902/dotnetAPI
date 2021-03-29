@@ -17,8 +17,8 @@ namespace dotnetAPI.Service
     }
     public class CustomerService : ICustomerService
     {
-        ICustomerRepository _customerRepository;
-        IUnitOfWork _unitOfWork;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CustomerService(ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
         {
@@ -47,7 +47,7 @@ namespace dotnetAPI.Service
 
         public Customer GetById(int Id)
         {
-            return _customerRepository.GetSingleById(Id);
+            return _customerRepository.GetById(Id);
         }
 
         public void Update(Customer customer)

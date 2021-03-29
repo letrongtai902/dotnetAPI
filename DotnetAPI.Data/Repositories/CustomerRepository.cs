@@ -11,20 +11,15 @@ namespace DotnetAPI.Data.Repositories
 {
     public interface ICustomerRepository: IRepository<Customer>
     {
-        IEnumerable<Customer> GetByFullName(string FullName);
+        
     }
     public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
         
-        public CustomerRepository(IDbFactory dbFactory)
-            : base(dbFactory)
+        public CustomerRepository(DotnetAPIDbContext dbcontext)
+            : base(dbcontext)
         {
 
-        }
-
-        public IEnumerable<Customer> GetByFullName (string FullName)
-        {
-            return this.DbContext.Customers.Where(x => x.FullName == FullName);
         }
     }
 }

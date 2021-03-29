@@ -13,12 +13,8 @@ namespace DotnetAPI.Data.Infrastructure
         void Update(T entity);
         void Delete(T entity);
         void Delete(int Id);
-        void DeleteMulti(Expression<Func<T, bool>> where);
-        T GetSingleById(int id);
-        T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);
-
+        T GetById(int id);
         IQueryable<T> GetAll(string[] includes = null);
-        IQueryable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
         int Count(Expression<Func<T, bool>> where);
 
     }

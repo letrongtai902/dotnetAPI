@@ -28,7 +28,6 @@ namespace dotnetAPI.Host.App_Start
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-            builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
             builder.RegisterType<DotnetAPIDbContext>().AsSelf().InstancePerRequest();
 
 

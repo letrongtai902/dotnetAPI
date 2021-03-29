@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dotnetAPI.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace DotnetAPI.Data.Infrastructure
 {
     public interface IUnitOfWork
     {
+        IRepository<Customer> Customers { get; }
         void Commit();
     }
 }

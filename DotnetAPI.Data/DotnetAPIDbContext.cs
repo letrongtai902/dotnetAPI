@@ -12,16 +12,16 @@ namespace DotnetAPI.Data
     {
         public DotnetAPIDbContext() : base("DbdotnetDemoAPI")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DotnetAPIDbContext, DotnetAPI.Data.Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DotnetAPIDbContext, DotnetAPI.Data.Migrations.Configuration>());
         }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Error> Errors { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
 
 
     }
