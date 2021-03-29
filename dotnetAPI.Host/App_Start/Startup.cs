@@ -24,7 +24,7 @@ namespace dotnetAPI.Host.App_Start
         private void ConfigAutofac(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
@@ -44,6 +44,7 @@ namespace dotnetAPI.Host.App_Start
                 .AsImplementedInterfaces().InstancePerRequest();
 
             Autofac.IContainer container = builder.Build();
+
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer) container);

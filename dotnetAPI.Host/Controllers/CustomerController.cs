@@ -11,9 +11,13 @@ using System.Web.Http;
 
 namespace dotnetAPI.Host.Controllers
 {
+
+
     [RoutePrefix("api/customer")]
     public class CustomerController : BaseApiController
     {
+        private readonly string ConnectionString = ConfigurationManager.ConnectionStrings["DbdotnetDemoAPI"].ConnectionString;
+
         ICustomerService _customerService;
         public CustomerController(IErrorService errorService, ICustomerService customerService) :
            base(errorService)
@@ -67,9 +71,9 @@ namespace dotnetAPI.Host.Controllers
 
         [Route("getwithlinq")]
         [HttpGet]
-        public IHttpActionResult Get(string FullName)
+        public IHttpActionResult GetUseLinq(string FullName)
         {
-            using(DotnetAPIDbContext db = new DotnetAPIDbContext())
+            using (DotnetAPIDbContext db = new DotnetAPIDbContext())
             {
                 var result = from value in db.Customers
                              where value.FullName == FullName
@@ -78,17 +82,19 @@ namespace dotnetAPI.Host.Controllers
             }
         }
 
+
+
         [Route("getWithDapper")]
         [HttpGet]
-        public IHttpActionResult GetUseDapper(string Email,string FullName)
+        public IHttpActionResult GetUseDapper(string Email, string FullName)
         {
-            
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DbdotnetDemoAPI"].ConnectionString))
+
+            using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 var p = new DynamicParameters();
                 p.Add("@FullName", FullName);
                 p.Add("@Email", Email);
-                var result = db.Query<Customer>("SelectAllCustomers", p , commandType: CommandType.StoredProcedure);
+                var result = db.Query<Customer>("SelectAllCustomers", p, commandType: CommandType.StoredProcedure);
                 return Json(result);
             }
         }
