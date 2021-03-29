@@ -23,35 +23,30 @@ namespace dotnetAPI.Host.Base
             {
                 result = function.Invoke();
             }
-            catch(DbUpdateException dbex)
+            catch (DbUpdateException dbex)
             {
                 LogError(dbex);
                 result = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbex.InnerException.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogError(ex);
                 result = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
             return result;
-            
+
         }
 
         private void LogError(Exception ex)
         {
-            try
-            {
-                Error error = new Error();
-                error.Message = ex.Message;
-                error.StackTrace = ex.StackTrace;
-                error.CreatedDate = DateTime.Now;
-                _errorService.Create(error);
-                _errorService.Commit();
-            }
-            catch
-            {
 
-            }
+            Error error = new Error();
+            error.Message = ex.Message;
+            error.StackTrace = ex.StackTrace;
+            error.CreatedDate = DateTime.Now;
+            _errorService.Create(error);
+            _errorService.Commit();
+
         }
     }
 }
