@@ -10,10 +10,9 @@ namespace dotnetAPI.Host.Base
 {
     public class BaseApiController : ApiController
     {
-        public IErrorService _errorService;
-        public BaseApiController(IErrorService errorService)
+        public BaseApiController()
         {
-            _errorService = errorService;
+            
         }
     }
 }

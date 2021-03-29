@@ -10,7 +10,7 @@ namespace DotnetAPI.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DotnetAPIDbContext _dbContext;
+        private readonly DotnetAPIDbContext _dbContext;
         private CustomerRepository _customers;
         public UnitOfWork(DotnetAPIDbContext dbContext)
         {

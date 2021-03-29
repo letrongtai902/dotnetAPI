@@ -15,8 +15,8 @@ namespace DotnetAPI.Data.Repositories
     public class ErrorRepository : RepositoryBase<Error>, IErrorRepository
     {
 
-        public ErrorRepository(DotnetAPIDbContext dbFactory)
-            : base(dbFactory)
+        public ErrorRepository(DotnetAPIDbContext dbContext)
+            : base(dbContext)
         {
 
         }

@@ -1,12 +1,8 @@
-﻿using Dapper;
+﻿
 using dotnetAPI.Host.Base;
 using dotnetAPI.Model.Models;
 using dotnetAPI.Service;
-using DotnetAPI.Data;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
+using System;
 using System.Web.Http;
 
 namespace dotnetAPI.Host.Controllers
@@ -16,13 +12,13 @@ namespace dotnetAPI.Host.Controllers
     [RoutePrefix("api/customer")]
     public class CustomerController : BaseApiController
     {
-        private readonly string ConnectionString = ConfigurationManager.ConnectionStrings["DbdotnetDemoAPI"].ConnectionString;
-
-        ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
+        private readonly IErrorService _errorService;
         public CustomerController(IErrorService errorService, ICustomerService customerService) :
-           base(errorService)
+           base()
         {
             _customerService = customerService;
+            _errorService = errorService;
         }
 
 
@@ -31,8 +27,21 @@ namespace dotnetAPI.Host.Controllers
         [HttpPost]
         public void Create(Customer customer)
         {
-            _customerService.Add(customer);
-            _customerService.Commit();
+            try
+            {
+                _customerService.Add(customer);
+                _customerService.Commit();
+            }
+            catch(Exception ex)
+            {
+                Error result = new Error();
+                result.Message = ex.Message;
+                result.StackTrace = ex.StackTrace;
+                result.CreatedDate = DateTime.Now;
+                _errorService.Create(result);
+                _errorService.Commit();
+            }
+            
 
         }
 
@@ -42,7 +51,20 @@ namespace dotnetAPI.Host.Controllers
         [HttpPut]
         public void Update(Customer customer)
         {
-            _customerService.Update(customer);
+            try
+            {
+                _customerService.Update(customer);
+            }
+            catch(Exception ex)
+            {
+                Error result = new Error();
+                result.Message = ex.Message;
+                result.StackTrace = ex.StackTrace;
+                result.CreatedDate = DateTime.Now;
+                _errorService.Create(result);
+                _errorService.Commit();
+            }
+            
         }
 
 
@@ -51,8 +73,21 @@ namespace dotnetAPI.Host.Controllers
         [HttpDelete]
         public void Delete(int ID)
         {
-            _customerService.Delete(ID);
-            _customerService.Commit();
+            try
+            {
+                _customerService.Delete(ID);
+                _customerService.Commit();
+            }
+            catch(Exception ex)
+            {
+                Error result = new Error();
+                result.Message = ex.Message;
+                result.StackTrace = ex.StackTrace;
+                result.CreatedDate = DateTime.Now;
+                _errorService.Create(result);
+                _errorService.Commit();
+            }
+            
         }
 
         [Route("getall")]
@@ -73,30 +108,15 @@ namespace dotnetAPI.Host.Controllers
         [HttpGet]
         public IHttpActionResult GetUseLinq(string FullName)
         {
-            using (DotnetAPIDbContext db = new DotnetAPIDbContext())
-            {
-                var result = from value in db.Customers
-                             where value.FullName == FullName
-                             select value;
-                return Json(result);
-            }
+            return Json(_customerService.GetWithLinq(FullName));
         }
-
-
 
         [Route("getWithDapper")]
         [HttpGet]
         public IHttpActionResult GetUseDapper(string Email, string FullName)
         {
 
-            using (IDbConnection db = new SqlConnection(ConnectionString))
-            {
-                var p = new DynamicParameters();
-                p.Add("@FullName", FullName);
-                p.Add("@Email", Email);
-                var result = db.Query<Customer>("SelectAllCustomers", p, commandType: CommandType.StoredProcedure);
-                return Json(result);
-            }
+            return Json(_customerService.GetWithDapper(Email, FullName));
         }
 
     }
