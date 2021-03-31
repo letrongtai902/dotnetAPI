@@ -9,8 +9,8 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            //ContextKey = "DotnetAPI.Data.DotnetAPIDbContext";
+            AutomaticMigrationsEnabled = true;
+            ContextKey = "DotnetAPI.Data.DotnetAPIDbContext";
         }
         protected override void Seed(DotnetAPI.Data.DotnetAPIDbContext context)
         {

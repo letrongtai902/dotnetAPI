@@ -16,6 +16,5 @@ namespace DotnetAPI.Data.Infrastructure
         T GetById(int id);
         IQueryable<T> GetAll(string[] includes = null);
         int Count(Expression<Func<T, bool>> where);
-
     }
 }

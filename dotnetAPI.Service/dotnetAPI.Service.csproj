@@ -55,8 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerService.cs" />
-    <Compile Include="ErrorService.cs" />
+    <Compile Include="IService\IErrorService.cs" />
+    <Compile Include="IService\ILogErrorService.cs" />
+    <Compile Include="Service\CustomerService.cs" />
+    <Compile Include="Service\ErrorService.cs" />
+    <Compile Include="IService\ICustomerService.cs" />
+    <Compile Include="Service\LogErrorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,20 +1,20 @@
-﻿using dotnetAPI.Model.Models;
+﻿using dotnetAPI.Model;
+using dotnetAPI.Model.Models;
 using DotnetAPI.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DotnetAPI.Data.Repositories.IRepository;
 
 namespace DotnetAPI.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
-    {
+    { 
         private readonly DotnetAPIDbContext _dbContext;
-        private CustomerRepository _customers;
-        public UnitOfWork(DotnetAPIDbContext dbContext)
+        private ICustomerRepository _customers;
+        private IErrorRepository _errorRepository;
+        public UnitOfWork(DotnetAPIDbContext dbContext, IErrorRepository errorRepository, ICustomerRepository customer)
         {
+            _customers = customer;
             _dbContext = dbContext;
+            _errorRepository = errorRepository;
         }
         public IRepository<Customer> Customers
         {
@@ -27,6 +27,17 @@ namespace DotnetAPI.Data.Infrastructure
                 return _customers;
             }
         }
+        public IRepository<Error> Errors {
+            get
+            {
+                if(_errorRepository == null)
+                {
+                    _errorRepository = new ErrorRepository(_dbContext);
+                }
+                return _errorRepository;
+            }
+        }
+
         public void Commit()
         {
             _dbContext.SaveChanges();

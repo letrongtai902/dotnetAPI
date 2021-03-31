@@ -1,5 +1,6 @@
 ﻿using dotnetAPI.Model.Models;
 using DotnetAPI.Data.Infrastructure;
+using DotnetAPI.Data.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace DotnetAPI.Data.Repositories
 {
-    public interface IErrorRepository : IRepository<Error>
-    {
-        
-    }
+  
     public class ErrorRepository : RepositoryBase<Error>, IErrorRepository
     {
 

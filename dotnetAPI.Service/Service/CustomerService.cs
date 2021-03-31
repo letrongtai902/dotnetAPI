@@ -9,23 +9,15 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using System.Configuration;
+using DotnetAPI.Data.Repositories.IRepository;
+using dotnetAPI.Service.IService;
 
 namespace dotnetAPI.Service
 {
-    public interface ICustomerService
-    {
-        void Add(Customer Customer);
-        void Delete(int Id);
-        void Update(Customer customer);
-        IEnumerable<Customer> GetAll();
-        Customer GetById(int Id);
-        IQueryable<Customer> GetWithLinq(string FullName);
-        IEnumerable<Customer> GetWithDapper(string Email, string FullName);
-        void Commit();
-    }
+    
     public class CustomerService : ICustomerService
     {
-        private readonly string ConnectionString = ConfigurationManager.ConnectionStrings["DbdotnetDemoAPI"].ConnectionString;
+        
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
 
@@ -36,17 +28,11 @@ namespace dotnetAPI.Service
         }
         public void Add(Customer Customer)
         {
-            _customerRepository.Add(Customer);
+            _unitOfWork.Customers.Add(Customer);
         }
-
-        public void Commit()
-        {
-            _unitOfWork.Commit();
-        }
-
         public void Delete(int Id)
         {
-            _customerRepository.Delete(Id);
+            _unitOfWork.Customers.Delete(Id);
         }
 
         public IEnumerable<Customer> GetAll()
@@ -56,19 +42,12 @@ namespace dotnetAPI.Service
 
         public Customer GetById(int Id)
         {
-            return _customerRepository.GetById(Id);
+            return _unitOfWork.Customers.GetById(Id);
         }
 
         public IEnumerable<Customer> GetWithDapper(string Email, string FullName)
         {
-            using (IDbConnection db = new SqlConnection(ConnectionString))
-            {
-                var p = new DynamicParameters();
-                p.Add("@FullName", FullName);
-                p.Add("@Email", Email);
-                var result = db.Query<Customer>("SelectAllCustomers", p, commandType: CommandType.StoredProcedure);
-                return result;
-            }
+            return _customerRepository.GetWithDapper(Email,FullName);
         }
 
         public IQueryable<Customer> GetWithLinq(string FullName)
@@ -82,11 +61,14 @@ namespace dotnetAPI.Service
             }
         }
 
-
-
         public void Update(Customer customer)
         {
-            _customerRepository.Update(customer);
+           _customerRepository.Update(customer);
+        }
+
+        public void Commit()
+        {
+            _unitOfWork.Commit();
         }
     }
 }

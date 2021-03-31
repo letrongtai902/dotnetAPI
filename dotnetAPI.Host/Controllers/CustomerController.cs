@@ -1,27 +1,47 @@
 ﻿
 using dotnetAPI.Host.Base;
+using dotnetAPI.Model;
 using dotnetAPI.Model.Models;
-using dotnetAPI.Service;
+using dotnetAPI.Service.IService;
 using System;
 using System.Web.Http;
 
 namespace dotnetAPI.Host.Controllers
 {
 
-
     [RoutePrefix("api/customer")]
     public class CustomerController : BaseApiController
     {
-        private readonly ICustomerService _customerService;
+        
+        ICustomerService _customerService;
+        private readonly ILogErrorService _logErrorService;
         private readonly IErrorService _errorService;
-        public CustomerController(IErrorService errorService, ICustomerService customerService) :
+        public CustomerController( ICustomerService customerService, ILogErrorService logErrorService, IErrorService errorService):
            base()
         {
             _customerService = customerService;
+            _logErrorService = logErrorService;
             _errorService = errorService;
+            
         }
+        private void LogError(Exception e)
+        {
+            LogError logError = new LogError();
+            logError.Message = e.Message;
+            logError.StackTrace = e.StackTrace;
+            logError.CreatedDate = DateTime.Now;
+            _logErrorService.Create(logError);
+        }
+        private void Log(Exception ex)
+        {
+            Error e = new Error();
+            e.Message = ex.Message;
+            e.CreatedDate = DateTime.Now;
+            e.StackTrace = ex.StackTrace;
 
-
+            _errorService.Create(e);
+            _errorService.Commit();
+        }
 
         [Route("create")]
         [HttpPost]
@@ -34,15 +54,9 @@ namespace dotnetAPI.Host.Controllers
             }
             catch(Exception ex)
             {
-                Error result = new Error();
-                result.Message = ex.Message;
-                result.StackTrace = ex.StackTrace;
-                result.CreatedDate = DateTime.Now;
-                _errorService.Create(result);
-                _errorService.Commit();
-            }
-            
-
+                LogError(ex);
+                Log(ex);
+            }  
         }
 
 
@@ -54,20 +68,15 @@ namespace dotnetAPI.Host.Controllers
             try
             {
                 _customerService.Update(customer);
+                _customerService.Commit();
             }
             catch(Exception ex)
             {
-                Error result = new Error();
-                result.Message = ex.Message;
-                result.StackTrace = ex.StackTrace;
-                result.CreatedDate = DateTime.Now;
-                _errorService.Create(result);
-                _errorService.Commit();
+                LogError(ex);
+                Log(ex);
             }
             
         }
-
-
 
         [Route("delete")]
         [HttpDelete]
@@ -80,14 +89,9 @@ namespace dotnetAPI.Host.Controllers
             }
             catch(Exception ex)
             {
-                Error result = new Error();
-                result.Message = ex.Message;
-                result.StackTrace = ex.StackTrace;
-                result.CreatedDate = DateTime.Now;
-                _errorService.Create(result);
-                _errorService.Commit();
+                LogError(ex);
+                Log(ex);
             }
-            
         }
 
         [Route("getall")]
