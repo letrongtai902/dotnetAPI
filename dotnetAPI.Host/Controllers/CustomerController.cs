@@ -1,8 +1,12 @@
 ﻿
+using AutoMapper;
 using dotnetAPI.Host.Base;
 using dotnetAPI.Model;
+using dotnetAPI.Model.DTO;
 using dotnetAPI.Model.Models;
 using dotnetAPI.Service.IService;
+using DotnetAPI.Data;
+using MediatR;
 using System;
 using System.Web.Http;
 
@@ -16,7 +20,7 @@ namespace dotnetAPI.Host.Controllers
         ICustomerService _customerService;
         private readonly ILogErrorService _logErrorService;
         private readonly IErrorService _errorService;
-        public CustomerController( ICustomerService customerService, ILogErrorService logErrorService, IErrorService errorService):
+        public CustomerController(ICustomerService customerService, ILogErrorService logErrorService, IErrorService errorService):
            base()
         {
             _customerService = customerService;
@@ -105,7 +109,9 @@ namespace dotnetAPI.Host.Controllers
         [HttpGet]
         public IHttpActionResult Get(int Id)
         {
-            return Json(_customerService.GetById(Id));
+            var result = _customerService.GetById(Id);
+            var customerDto = Mapper.Map<CustomerDto>(result);
+            return Json(customerDto);
         }
 
         [Route("getwithlinq")]
@@ -119,9 +125,10 @@ namespace dotnetAPI.Host.Controllers
         [HttpGet]
         public IHttpActionResult GetUseDapper(string Email, string FullName)
         {
-
             return Json(_customerService.GetWithDapper(Email, FullName));
         }
 
+
+     
     }
 }

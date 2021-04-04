@@ -30,3 +30,53 @@
 2021-03-31 01:53:20,494 [7] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
 2021-03-31 01:58:23,557 [6] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
 2021-03-31 01:59:54,596 [6] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Store update, insert, or delete statement affected an unexpected number of rows (0). Entities may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=472540 for information on understanding and handling optimistic concurrency exceptions.
+2021-04-02 09:18:51,310 [5] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Missing type map configuration or unsupported mapping.
+
+Mapping types:
+CustomerDto -> Customer
+dotnetAPI.Model.DTO.CustomerDto -> dotnetAPI.Model.Models.Customer
+
+Destination path:
+Customer
+
+Source value:
+dotnetAPI.Model.DTO.CustomerDto
+2021-04-02 09:20:18,081 [7] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Missing type map configuration or unsupported mapping.
+
+Mapping types:
+CustomerDto -> Customer
+dotnetAPI.Model.DTO.CustomerDto -> dotnetAPI.Model.Models.Customer
+
+Destination path:
+Customer
+
+Source value:
+dotnetAPI.Model.DTO.CustomerDto
+2021-04-02 09:21:18,887 [6] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Missing type map configuration or unsupported mapping.
+
+Mapping types:
+CustomerDto -> Customer
+dotnetAPI.Model.DTO.CustomerDto -> dotnetAPI.Model.Models.Customer
+
+Destination path:
+Customer
+
+Source value:
+dotnetAPI.Model.DTO.CustomerDto
+2021-04-02 09:27:04,835 [7] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-02 09:27:11,117 [6] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-02 09:29:04,092 [6] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Missing type map configuration or unsupported mapping.
+
+Mapping types:
+CustomerDto -> Customer
+dotnetAPI.Model.DTO.CustomerDto -> dotnetAPI.Model.Models.Customer
+
+Destination path:
+Customer
+
+Source value:
+dotnetAPI.Model.DTO.CustomerDto
+2021-04-02 09:32:01,916 [10] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity

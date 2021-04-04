@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using dotnetAPI.Model.Validation;
+using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace dotnetAPI.Model.Models
 {
+    [Validator(typeof(CustomerValidation))]
     public class Customer
     {
         [Key]

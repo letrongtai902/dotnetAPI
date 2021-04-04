@@ -1,5 +1,6 @@
 ﻿using dotnetAPI.Model;
 using dotnetAPI.Service.IService;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace dotnetAPI.Host.Controllers
     public class LogErrorController: ApiController
     {
         private readonly ILogErrorService _logErrorService;
-        public LogErrorController(ILogErrorService logErrorService) :
+        private readonly IMediator _mediator;
+        public LogErrorController(ILogErrorService logErrorService,IMediator mediator) :
           base()
         {
             _logErrorService = logErrorService;
+            _mediator = mediator;
 
         }
         [Route("create")]

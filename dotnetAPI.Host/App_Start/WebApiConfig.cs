@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Catel.Data;
+using dotnetAPI.Model.Validation;
+using FluentValidation.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,16 +12,17 @@ namespace dotnetAPI.Host
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
 
-            // Web API routes
             config.MapHttpAttributeRoutes();
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            //config.Filters.Add(new ValidateModelStateFilter());
+            FluentValidationModelValidatorProvider.Configure(config);
         }
     }
 }

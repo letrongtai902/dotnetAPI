@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using dotnetAPI.Host.Mapping;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace dotnetAPI.Host
@@ -9,7 +10,7 @@ namespace dotnetAPI.Host
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            
+            AutoMapConfiguation.configure();
         }
     }
 }
