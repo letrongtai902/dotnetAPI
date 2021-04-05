@@ -13,7 +13,6 @@ namespace dotnetAPI.Host.Mapping
         public static void configure()
         {
             Mapper.CreateMap<Customer, CustomerDto>();
-           
         }
     }
 }
