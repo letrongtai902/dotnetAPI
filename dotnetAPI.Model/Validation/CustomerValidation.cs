@@ -13,10 +13,10 @@ namespace dotnetAPI.Model.Validation
     {
         public CustomerValidation()
         {
-            RuleFor(v => v.Email).EmailAddress().WithMessage("Sai cái Email");
+            RuleFor(v => v.Email)
+                .EmailAddress().WithMessage("Nhập đùng format Email")
+                .NotNull().WithMessage("Email không được để trống");
             RuleFor(v => v.FullName).Length(2,50);
-            RuleFor(v => v.ID).Empty();
-           
         }
     }
 }
