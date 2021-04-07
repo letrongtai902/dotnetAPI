@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dotnetAPI.Model.DTO
 {
-    
+    [Validator(typeof(CustomerValidation))]
     public class CustomerDto
     {
         public long ID { get; set; }

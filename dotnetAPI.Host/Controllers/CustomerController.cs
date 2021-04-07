@@ -82,7 +82,7 @@ namespace dotnetAPI.Host.Controllers
             
         }
 
-        [Route("delete")]
+        [Route("delete/{ID}")]
         [HttpDelete]
         public void Delete(int ID)
         {
@@ -105,7 +105,7 @@ namespace dotnetAPI.Host.Controllers
             return Json(_customerService.GetAll());
         }
 
-        [Route("getbyid")]
+        [Route("getbyid/{Id}")]
         [HttpGet]
         public IHttpActionResult Get(int Id)
         {

@@ -21,7 +21,7 @@ namespace dotnetAPI.Host
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            //config.Filters.Add(new ValidateModelStateFilter());
+            config.Filters.Add(new ValidateModelStateFilter());
             FluentValidationModelValidatorProvider.Configure(config);
         }
     }

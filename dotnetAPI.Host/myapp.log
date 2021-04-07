@@ -80,3 +80,15 @@ Source value:
 dotnetAPI.Model.DTO.CustomerDto
 2021-04-02 09:32:01,916 [10] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
 Parameter name: entity
+2021-04-05 15:28:41,284 [19] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-05 15:28:48,822 [109] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-05 15:28:50,121 [19] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-05 17:07:17,605 [9] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-06 00:56:46,096 [17] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity
+2021-04-06 16:04:30,948 [70] INFO DotnetAPI.Data.Repositories.LogErrorRepository - Value cannot be null.
+Parameter name: entity

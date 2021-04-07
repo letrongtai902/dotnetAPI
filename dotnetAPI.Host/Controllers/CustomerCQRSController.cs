@@ -19,13 +19,6 @@ namespace dotnetAPI.Host.Controllers
             _mediator = mediator;
         }
 
-        //[Route("getbyid")]
-        //[HttpGet]
-        //public async Task<IHttpActionResult> GetById(int Id)
-        //{
-        //    return Json(await _mediator.Send(new GetCustomerById { Id = Id }));
-        //}
-
         [Route("Postcustomer")]
         [HttpPost]
 
